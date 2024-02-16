@@ -16,9 +16,9 @@ export default function App() {
           <Route path="/" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
         </Route>
-        <Route element={<DashboardPage />}>
-          <Route path="/dashboard" element={<DashboardHomePage />} />
-          <Route path="/dashboard/notes" element={<DashboardNotesPage />} />
+        <Route path="/dashboard" element={<DashboardPage />}>
+          <Route path="" element={<DashboardHomePage />} />
+          <Route path="notes" element={<DashboardNotesPage />} />
         </Route>
       </Routes>
     </UserProvider>
