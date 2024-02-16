@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import API from '../service/api.service';
+import ApiService from '../service/api.service';
 
 /**
  * @typedef {object} LoginDto
@@ -39,12 +39,12 @@ export const useUser = () => {
   /** @param {LoginDto} body */
   const login = async (body) => {
     try {
-      const res = await API.post('/auth/login', body);
+      const res = await ApiService.post('/auth/login', body);
       setAuthentication({
         auth: true,
         jwt: res.data.token,
       });
-      window.sessionStorage.setItem('token', res.data.token);
+      sessionStorage.setItem('token', res.data.token);
     } catch (e) {
       throw new Error(`code ${e?.response?.status}`);
     }
@@ -53,14 +53,14 @@ export const useUser = () => {
   /** @param {RegisterDto} body */
   const register = async (body) => {
     try {
-      await API.post('/auth/register', body);
+      await ApiService.post('/auth/register', body);
     } catch (e) {
       throw new Error(`code ${e?.response?.status}`);
     }
   };
 
   const logout = async () => {
-    window.sessionStorage.removeItem('token');
+    sessionStorage.removeItem('token');
     setAuthentication({
       auth: false,
       jwt: null,
@@ -68,7 +68,7 @@ export const useUser = () => {
   };
 
   const checkAuth = async () => {
-    const token = window.sessionStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     if (token && !authentication.auth && !success) {
       setAuthentication({
         auth: true,

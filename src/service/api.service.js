@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 axios.interceptors.request.use((options) => {
-  const token = window.sessionStorage.getItem('jwt');
+  const token = sessionStorage.getItem('jwt');
   if (token) {
     options.headers.set('Authorization', `Bearer ${token}`);
   }
